@@ -11,15 +11,16 @@ export class CreateShortenedUrlUseCase {
     private readonly configService: ConfigService, private readonly shortenedUrlRepository: ShortenedUrlRepository,
   ) { }
 
-  async execute(createShortenedUrlDto: CreateShortenedUrlDto): Promise<CreateShortenedUrlResponseDto> {
+  async execute(createShortenedUrlDto: CreateShortenedUrlDto, userId: string | null): Promise<CreateShortenedUrlResponseDto> {
     const baseUrl = this.configService.get('BASE_URL');
     if (!baseUrl) {
       throw new Error('BASE_URL environment variable is not set');
     }
-
     const shortenedUrl = new ShortenedUrl(baseUrl);
-    
+
     shortenedUrl.originalUrl = createShortenedUrlDto.originalUrl;
+    shortenedUrl.userId = userId ?? null;
+    
     return await this.shortenedUrlRepository.create(shortenedUrl);
   }
 }
