@@ -5,9 +5,10 @@ import { UpdateShortenedUrlResponseDto } from '@application/dtos/shortened-url/u
 import { UpdateShortenedUrlDto } from '@application/dtos/shortened-url/update-shortened-url.dto';
 import { CreateShortenedUrlUseCase } from '@application/use-cases/shortened-url/create-shortened-url.usecase';
 import { ListUserShortenedUrlsUseCase } from '@application/use-cases/shortened-url/list-user-shortened-urls.usecase';
+import { SoftDeleteShortenedUrlUseCase } from '@application/use-cases/shortened-url/soft-delete-shortened-url.usecase';
 import { UpdateUserShortenedUrlsUseCase } from '@application/use-cases/shortened-url/update-shortened-url.usecase';
 import { JwtAuthGuard, JwtOptionalGuard } from '@infra/auth/auth.guard';
-import { Body, Controller, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('shorten-url')
@@ -15,6 +16,7 @@ export class ShortUrlController {
   constructor(private readonly listShortenedUrlsUseCase: ListUserShortenedUrlsUseCase,
     private readonly createShortenedUrlUseCase: CreateShortenedUrlUseCase,
     private readonly updateShortenedUrlUseCase: UpdateUserShortenedUrlsUseCase,
+    private readonly softDeleteShortenedUrlUseCase: SoftDeleteShortenedUrlUseCase,
   ) {}
 
   @Get()
@@ -75,5 +77,30 @@ export class ShortUrlController {
   : Promise<UpdateShortenedUrlResponseDto> {
     const userId = req.user?.userId;
     return await this.updateShortenedUrlUseCase.execute(shortUrlId, userId, updateShortenedUrlDto);
+  }
+
+  @Delete(':shortUrlId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT')
+  @ApiOperation({ summary: 'Delete a shortened URL' })
+  @ApiResponse({
+    status: 204,
+    description: 'Shortened URL deleted successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'You are not authorized to delete this shortened URL',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Shortened URL not found',
+  })
+  async softDeleteShortenedUrl(@Param('shortUrlId') shortUrlId: string, @Request() req): Promise<void> {
+    const userId = req.user?.userId;
+    await this.softDeleteShortenedUrlUseCase.execute(shortUrlId, userId);
   }
 }
