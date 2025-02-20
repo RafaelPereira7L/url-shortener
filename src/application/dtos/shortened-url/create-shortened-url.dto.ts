@@ -3,7 +3,7 @@ import { IsNotEmpty, IsUrl, MaxLength } from "class-validator";
 
 export class CreateShortenedUrlDto {
   @ApiProperty()
-  @IsUrl()
+  @IsUrl({ require_tld: false })
   @IsNotEmpty()
   @MaxLength(255)
   originalUrl: string;
