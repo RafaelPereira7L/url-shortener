@@ -6,11 +6,14 @@ import { ShortenedUrlSchema } from '@infra/schemas/shortened-url.schema';
 import { ShortenedUrlRepositoryImpl } from './shortened-url-repository.impl';
 import { ShortenedUrlRepository } from '@domain/repositories/shortened-url.repository';
 import { UserRepository } from '@domain/repositories/user.repository';
+import { ClickRepository } from '@domain/repositories/click.repository';
+import { ClickRepositoryImpl } from './click-repository.impl';
+import { ClickSchema } from '@infra/schemas/click.schema';
 
 @Global()
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserSchema, ShortenedUrlSchema]),
+    TypeOrmModule.forFeature([UserSchema, ShortenedUrlSchema, ClickSchema]),
   ],
   providers: [{
     provide: UserRepository,
@@ -18,7 +21,12 @@ import { UserRepository } from '@domain/repositories/user.repository';
   }, {
     provide: ShortenedUrlRepository,
     useClass: ShortenedUrlRepositoryImpl,
-  }],
-  exports: [UserRepository, ShortenedUrlRepository],
+  },
+  {
+    provide: ClickRepository,
+    useClass: ClickRepositoryImpl,
+  }
+],
+  exports: [UserRepository, ShortenedUrlRepository, ClickRepository],
 })
 export class RepositoriesModule {}

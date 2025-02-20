@@ -1,3 +1,4 @@
+import { Click } from "./click.entity";
 import { User } from "./user.entity";
 
 export class ShortenedUrl {
@@ -9,6 +10,8 @@ export class ShortenedUrl {
   deletedAt: Date;
   userId: string | null;
   user: User | null;
+  clicksCount: number;
+  clicks: Click[];
 
   constructor(baseUrl: string) {
     this.shortUrl = this.generateShortUrl(baseUrl);
