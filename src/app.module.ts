@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UserController } from './http/controllers/user.controller';
-import { JwtModule } from '@nestjs/jwt';
 import { SignInController } from '@http/controllers/signin.controller';
 import { ShortUrlController } from '@http/controllers/shortened-url.controller';
-import { RepositoriesModule } from './infra/repositories.module';
+import { RepositoriesModule } from './infra/repositories/repositories.module';
 import { UseCasesModule } from './application/use-cases/use-cases.module';
+import { AuthModule } from './infra/auth/auth.module';
 
 @Module({
   imports: [
@@ -24,13 +24,10 @@ import { UseCasesModule } from './application/use-cases/use-cases.module';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    JwtModule.register({
-      global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '7d' },
-    }),
+
     RepositoriesModule,
     UseCasesModule,
+    AuthModule,
   ],
   controllers: [UserController, SignInController, ShortUrlController],
   providers: [],

@@ -19,5 +19,4 @@ export class SignInUseCase {
     const accessToken = this.jwtService.sign({ sub: user.id, email: user.email });
     return { access_token: accessToken };
   }
-
 }
