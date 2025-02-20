@@ -1,3 +1,4 @@
+import { CreateUserResponseDto } from "@application/dtos/user/create-user-response.dto";
 import { CreateUserDto } from "@application/dtos/user/create-user.dto";
 import { User } from "@domain/entities/user.entity";
 import { UserRepositoryImpl } from "@infra/repositories/user-repository.impl";
@@ -8,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepositoryImpl) { }
 
-  async execute(createUserDto: CreateUserDto): Promise<User> {
+  async execute(createUserDto: CreateUserDto): Promise<CreateUserResponseDto> {
     const userAlreadyExists = await this.userRepository.findByEmail(createUserDto.email);
 
     if (userAlreadyExists) {
@@ -20,6 +21,9 @@ export class CreateUserUseCase {
     user.email = createUserDto.email;
     user.password = await bcrypt.hash(createUserDto.password, 10);
 
-    return await this.userRepository.create(user);
+    const createdUser = await this.userRepository.create(user);
+
+    const { password, ...userWithoutPassword } = createdUser;
+    return userWithoutPassword;
   }
 }
