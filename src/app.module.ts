@@ -1,15 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UserSchema } from '@infra/schemas/user.schema';
 import { UserController } from './http/controllers/user.controller';
-import { FindUserByEmailUseCase } from '@application/use-cases/user/find-user-by-email.usecase';
-import { UserRepositoryImpl } from '@infra/repositories/user-repository.impl';
-import { CreateUserUseCase } from '@application/use-cases/user/create-user.usecase';
 import { JwtModule } from '@nestjs/jwt';
 import { SignInController } from '@http/controllers/signin.controller';
-import { SignInUseCase } from '@application/use-cases/auth/signin.usecase';
-import { ShortenedUrlSchema } from '@infra/schemas/shortened-url.schema';
+import { ShortUrlController } from '@http/controllers/shortened-url.controller';
+import { RepositoriesModule } from './infra/repositories.module';
+import { UseCasesModule } from './application/use-cases/use-cases.module';
 
 @Module({
   imports: [
@@ -27,14 +24,15 @@ import { ShortenedUrlSchema } from '@infra/schemas/shortened-url.schema';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([UserSchema, ShortenedUrlSchema]),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '7d' },
     }),
+    RepositoriesModule,
+    UseCasesModule,
   ],
-  controllers: [UserController, SignInController],
-  providers: [FindUserByEmailUseCase, CreateUserUseCase, SignInUseCase, UserRepositoryImpl],
+  controllers: [UserController, SignInController, ShortUrlController],
+  providers: [],
 })
 export class AppModule { }
