@@ -10,6 +10,11 @@ export const UserSchema = new EntitySchema<User>({
       default: () => 'gen_random_uuid()',
       primary: true,
     },
+    name: {
+      type: 'varchar',
+      nullable: false,
+      length: 255,
+    },
     email: {
       type: 'varchar',
       unique: true,
