@@ -9,6 +9,7 @@ import { CreateUserUseCase } from '@application/use-cases/user/create-user.useca
 import { JwtModule } from '@nestjs/jwt';
 import { SignInController } from '@http/controllers/signin.controller';
 import { SignInUseCase } from '@application/use-cases/auth/signin.usecase';
+import { ShortenedUrlSchema } from '@infra/schemas/shortened-url.schema';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { SignInUseCase } from '@application/use-cases/auth/signin.usecase';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([UserSchema]),
+    TypeOrmModule.forFeature([UserSchema, ShortenedUrlSchema]),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
