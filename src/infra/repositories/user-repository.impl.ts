@@ -20,13 +20,8 @@ export class UserRepositoryImpl implements UserRepository {
     return await this.userRepository.save(user);
   }
 
-  async update(user: User): Promise<User> {
-    const existingUser = await this.findById(user.id);
-
-    if (!existingUser) {
-      throw new Error('User not found');
-    }
-
-    return await this.userRepository.save(user);
+  async update(user: User): Promise<boolean> {
+    const updateResult = await this.userRepository.update(user.id, user);
+    return updateResult.affected === 1;
   }
 }
