@@ -30,7 +30,11 @@ export class ShortenedUrlRepositoryImpl implements ShortenedUrlRepository {
     return await this.shortenedUrlRepository.findOneBy({ originalUrl });
   }
 
-  async findAll(userId: string): Promise<ShortenedUrl[]> {
+  async findAllByUserId(userId: string): Promise<ShortenedUrl[]> {
     return await this.shortenedUrlRepository.find({ where: { userId } });
+  }
+
+  async findByShortUrlId(id: string): Promise<ShortenedUrl | null> {
+    return await this.shortenedUrlRepository.findOneBy({ id });
   }
 }
