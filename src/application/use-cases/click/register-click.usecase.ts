@@ -18,8 +18,8 @@ export class RegisterClickUseCase {
 
     const click = new Click();
     click.shortenedUrl = shortenedUrl;
+    click.shortenedUrlId = shortenedUrl.id;
     click.userAgent = userAgent;
-
     await this.clickRepository.create(click);
   }
 }
