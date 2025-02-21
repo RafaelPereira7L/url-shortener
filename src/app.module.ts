@@ -22,7 +22,7 @@ import { RedirectController } from './http/controllers/redirect.controller';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV === 'DEVELOPMENT',
       autoLoadEntities: true,
     }),
 
