@@ -1,6 +1,6 @@
 import { CreateShortenedUrlResponseDto } from '@application/dtos/shortened-url/create-shortened-url-response.dto';
 import { CreateShortenedUrlDto } from '@application/dtos/shortened-url/create-shortened-url.dto';
-import { ListUserShortenedUrlsResponseDto } from '@application/dtos/shortened-url/list-user-shortened-urls-response.dto';
+import { ShortenedUrlWithClicksDto } from '@application/dtos/shortened-url/shortened-url-with-clicks.dto';
 import { UpdateShortenedUrlResponseDto } from '@application/dtos/shortened-url/update-shortened-url-response.dto';
 import { UpdateShortenedUrlDto } from '@application/dtos/shortened-url/update-shortened-url.dto';
 import { CreateShortenedUrlUseCase } from '@application/use-cases/shortened-url/create-shortened-url.usecase';
@@ -26,13 +26,13 @@ export class ShortUrlController {
   @ApiResponse({
     status: 200,
     description: 'List of shortened URLs',
-    type: ListUserShortenedUrlsResponseDto,
+    type: ShortenedUrlWithClicksDto,
   })
   @ApiResponse({
     status: 401,
     description: 'Unauthorized',
   })
-  async listShortenedUrls(@Request() req): Promise<ListUserShortenedUrlsResponseDto> {
+  async listShortenedUrls(@Request() req): Promise<ShortenedUrlWithClicksDto[]> {
     return await this.listShortenedUrlsUseCase.execute(req.user?.userId);
   }
 

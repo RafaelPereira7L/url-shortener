@@ -7,6 +7,7 @@ import { ShortUrlController } from '@http/controllers/shortened-url.controller';
 import { RepositoriesModule } from './infra/repositories/repositories.module';
 import { UseCasesModule } from './application/use-cases/use-cases.module';
 import { AuthModule } from './infra/auth/auth.module';
+import { RedirectController } from './http/controllers/redirect.controller';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { AuthModule } from './infra/auth/auth.module';
     UseCasesModule,
     AuthModule,
   ],
-  controllers: [UserController, SignInController, ShortUrlController],
+  controllers: [UserController, SignInController, ShortUrlController, RedirectController],
   providers: [],
 })
 export class AppModule { }
