@@ -33,6 +33,7 @@ export const ClickSchema = new EntitySchema<Click>({
         name: 'shortenedUrlId',
         referencedColumnName: 'id',
       },
-    }
+      inverseSide: 'clicks',
+    },
   },
 });

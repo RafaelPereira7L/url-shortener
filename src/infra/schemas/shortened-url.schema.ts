@@ -49,5 +49,11 @@ export const ShortenedUrlSchema = new EntitySchema<ShortenedUrl>({
         referencedColumnName: 'id',
       },
     },
+    clicks: {
+      type: 'one-to-many',
+      target: 'Click',
+      inverseSide: 'shortenedUrl',
+      cascade: true,
+    },
   },
 });
