@@ -1,0 +1,17 @@
+# Build Stage
+FROM node:20.18-bullseye-slim AS build
+WORKDIR /usr/src/app
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm
+RUN pnpm i
+COPY . .
+RUN pnpm run build
+
+# Prod Stage
+FROM node:20.18-bullseye-slim
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app/.env ./
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/node_modules ./node_modules
+CMD ["node", "dist/main.js"]
+EXPOSE 3000

@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres-url-shortener-prod
+    image: postgres:16.3-alpine
+    networks:
+      - network
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  app:
+    container_name: url-shortener-app-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    networks:
+      - network
+    ports:
+      - '3000:3000'
+    environment:
+      DB_HOST: postgres
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      NODE_ENV: PRODUCTION
+    depends_on:
+      - postgres
+    restart: always
+
+networks:
+  network:
+
+volumes:
+  postgres_data:
