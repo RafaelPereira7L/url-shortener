@@ -8,12 +8,28 @@ import { ListUserShortenedUrlsUseCase } from '@application/use-cases/shortened-u
 import { SoftDeleteShortenedUrlUseCase } from '@application/use-cases/shortened-url/soft-delete-shortened-url.usecase';
 import { UpdateUserShortenedUrlsUseCase } from '@application/use-cases/shortened-url/update-shortened-url.usecase';
 import { JwtAuthGuard, JwtOptionalGuard } from '@infra/auth/auth.guard';
-import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 @Controller('shorten-url')
 export class ShortUrlController {
-  constructor(private readonly listShortenedUrlsUseCase: ListUserShortenedUrlsUseCase,
+  constructor(
+    private readonly listShortenedUrlsUseCase: ListUserShortenedUrlsUseCase,
     private readonly createShortenedUrlUseCase: CreateShortenedUrlUseCase,
     private readonly updateShortenedUrlUseCase: UpdateUserShortenedUrlsUseCase,
     private readonly softDeleteShortenedUrlUseCase: SoftDeleteShortenedUrlUseCase,
@@ -32,7 +48,9 @@ export class ShortUrlController {
     status: 401,
     description: 'Unauthorized',
   })
-  async listShortenedUrls(@Request() req): Promise<ShortenedUrlWithClicksDto[]> {
+  async listShortenedUrls(
+    @Request() req,
+  ): Promise<ShortenedUrlWithClicksDto[]> {
     return await this.listShortenedUrlsUseCase.execute(req.user?.userId);
   }
 
@@ -46,9 +64,15 @@ export class ShortUrlController {
     description: 'Shortened URL created successfully',
     type: CreateShortenedUrlResponseDto,
   })
-  async createShortenedUrl(@Body() createShortenedUrlDto: CreateShortenedUrlDto, @Request() req): Promise<CreateShortenedUrlResponseDto> {
+  async createShortenedUrl(
+    @Body() createShortenedUrlDto: CreateShortenedUrlDto,
+    @Request() req,
+  ): Promise<CreateShortenedUrlResponseDto> {
     const userId = req.user?.userId;
-    return await this.createShortenedUrlUseCase.execute(createShortenedUrlDto, userId);
+    return await this.createShortenedUrlUseCase.execute(
+      createShortenedUrlDto,
+      userId,
+    );
   }
 
   @Patch(':shortUrlId')
@@ -73,10 +97,17 @@ export class ShortUrlController {
     status: 404,
     description: 'Shortened URL not found',
   })
-  async updateShortenedUrl(@Param('shortUrlId') shortUrlId: string, @Body() updateShortenedUrlDto: UpdateShortenedUrlDto, @Request() req)
-  : Promise<UpdateShortenedUrlResponseDto> {
+  async updateShortenedUrl(
+    @Param('shortUrlId') shortUrlId: string,
+    @Body() updateShortenedUrlDto: UpdateShortenedUrlDto,
+    @Request() req,
+  ): Promise<UpdateShortenedUrlResponseDto> {
     const userId = req.user?.userId;
-    return await this.updateShortenedUrlUseCase.execute(shortUrlId, userId, updateShortenedUrlDto);
+    return await this.updateShortenedUrlUseCase.execute(
+      shortUrlId,
+      userId,
+      updateShortenedUrlDto,
+    );
   }
 
   @Delete(':shortUrlId')
@@ -99,7 +130,10 @@ export class ShortUrlController {
     status: 404,
     description: 'Shortened URL not found',
   })
-  async softDeleteShortenedUrl(@Param('shortUrlId') shortUrlId: string, @Request() req): Promise<void> {
+  async softDeleteShortenedUrl(
+    @Param('shortUrlId') shortUrlId: string,
+    @Request() req,
+  ): Promise<void> {
     const userId = req.user?.userId;
     await this.softDeleteShortenedUrlUseCase.execute(shortUrlId, userId);
   }

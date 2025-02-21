@@ -1,16 +1,18 @@
-import { CreateUserResponseDto } from "@application/dtos/user/create-user-response.dto";
-import { CreateUserDto } from "@application/dtos/user/create-user.dto";
-import { User } from "@domain/entities/user.entity";
-import { UserRepository } from "@domain/repositories/user.repository";
-import { ConflictException, Injectable } from "@nestjs/common";
+import { CreateUserResponseDto } from '@application/dtos/user/create-user-response.dto';
+import { CreateUserDto } from '@application/dtos/user/create-user.dto';
+import { User } from '@domain/entities/user.entity';
+import { UserRepository } from '@domain/repositories/user.repository';
+import { ConflictException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private readonly userRepository: UserRepository) { }
+  constructor(private readonly userRepository: UserRepository) {}
 
   async execute(createUserDto: CreateUserDto): Promise<CreateUserResponseDto> {
-    const userAlreadyExists = await this.userRepository.findByEmail(createUserDto.email);
+    const userAlreadyExists = await this.userRepository.findByEmail(
+      createUserDto.email,
+    );
 
     if (userAlreadyExists) {
       throw new ConflictException('User already exists');

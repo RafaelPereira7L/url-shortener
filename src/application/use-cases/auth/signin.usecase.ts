@@ -1,13 +1,16 @@
-import { SignInResponseDto } from "@application/dtos/sign-in/signin-response.dto";
-import { SignInDto } from "@application/dtos/sign-in/signin.dto";
-import { UserRepository } from "@domain/repositories/user.repository";
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+import { SignInResponseDto } from '@application/dtos/sign-in/signin-response.dto';
+import { SignInDto } from '@application/dtos/sign-in/signin.dto';
+import { UserRepository } from '@domain/repositories/user.repository';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class SignInUseCase {
-  constructor(private readonly jwtService: JwtService, private readonly userRepository: UserRepository) { }
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   async execute(credentials: SignInDto): Promise<SignInResponseDto> {
     const user = await this.userRepository.findByEmail(credentials.email);
@@ -15,8 +18,11 @@ export class SignInUseCase {
     if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    
-    const accessToken = this.jwtService.sign({ sub: user.id, email: user.email });
+
+    const accessToken = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+    });
     return { access_token: accessToken };
   }
 }

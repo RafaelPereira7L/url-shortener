@@ -1,3 +1,3 @@
-import { CreateShortenedUrlDto } from "./create-shortened-url.dto";
+import { CreateShortenedUrlDto } from './create-shortened-url.dto';
 
 export class UpdateShortenedUrlResponseDto extends CreateShortenedUrlDto {}

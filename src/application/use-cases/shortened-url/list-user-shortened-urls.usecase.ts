@@ -1,12 +1,12 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { ShortenedUrlRepository } from "@domain/repositories/shortened-url.repository";
-import { ShortenedUrlWithClicksDto } from "@application/dtos/shortened-url/shortened-url-with-clicks.dto";
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { ShortenedUrlRepository } from '@domain/repositories/shortened-url.repository';
+import { ShortenedUrlWithClicksDto } from '@application/dtos/shortened-url/shortened-url-with-clicks.dto';
 
 @Injectable()
 export class ListUserShortenedUrlsUseCase {
   constructor(
     private readonly shortenedUrlRepository: ShortenedUrlRepository,
-  ) { }
+  ) {}
 
   async execute(userId: string | null): Promise<ShortenedUrlWithClicksDto[]> {
     if (!userId) {

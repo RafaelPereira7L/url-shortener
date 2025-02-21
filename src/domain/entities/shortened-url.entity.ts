@@ -1,5 +1,5 @@
-import { Click } from "./click.entity";
-import { User } from "./user.entity";
+import { Click } from './click.entity';
+import { User } from './user.entity';
 
 export class ShortenedUrl {
   id: string;
@@ -18,18 +18,19 @@ export class ShortenedUrl {
   }
 
   private generateShortCode(): string {
-    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const chars =
+      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const charsLength = chars.length;
     const codeLength = 6;
     let result = '';
-  
+
     const randomValues = new Uint32Array(codeLength);
     crypto.getRandomValues(randomValues);
-      
+
     for (let i = 0; i < codeLength; i++) {
       result += chars[randomValues[i] % charsLength];
     }
-  
+
     return result;
   }
 

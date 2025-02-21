@@ -1,4 +1,4 @@
-import { ShortenedUrl } from "@domain/entities/shortened-url.entity";
+import { ShortenedUrl } from '@domain/entities/shortened-url.entity';
 
 export abstract class ShortenedUrlRepository {
   abstract findByShortUrlId(id: string): Promise<ShortenedUrl | null>;

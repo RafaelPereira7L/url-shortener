@@ -6,7 +6,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {}
 
 @Injectable()
 export class JwtOptionalGuard extends AuthGuard('jwt') {
-  handleRequest(err, user, info, context: ExecutionContext) {
+  handleRequest(err, user, _info, _context: ExecutionContext) {
     if (err || !user) {
       return null;
     }

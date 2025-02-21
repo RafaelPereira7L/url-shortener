@@ -7,12 +7,21 @@ export class CreateUserResponseDto {
   @ApiProperty({ example: 'John Doe', description: 'The name of the user' })
   name: string;
 
-  @ApiProperty({ example: 'john@example.com', description: 'The email of the user' })
+  @ApiProperty({
+    example: 'john@example.com',
+    description: 'The email of the user',
+  })
   email: string;
 
-  @ApiProperty({ example: '2023-10-01T00:00:00.000Z', description: 'The date the user was created' })
+  @ApiProperty({
+    example: '2023-10-01T00:00:00.000Z',
+    description: 'The date the user was created',
+  })
   createdAt: Date;
 
-  @ApiProperty({ example: '2023-10-01T00:00:00.000Z', description: 'The date the user was last updated' })
+  @ApiProperty({
+    example: '2023-10-01T00:00:00.000Z',
+    description: 'The date the user was last updated',
+  })
   updatedAt: Date;
 }

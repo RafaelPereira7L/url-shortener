@@ -1,10 +1,13 @@
-import { Click } from "@domain/entities/click.entity";
-import { ClickRepository } from "@domain/repositories/click.repository";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Click } from '@domain/entities/click.entity';
+import { ClickRepository } from '@domain/repositories/click.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 export class ClickRepositoryImpl implements ClickRepository {
-  constructor(@InjectRepository(Click) private readonly clickRepository: Repository<Click>) {}
+  constructor(
+    @InjectRepository(Click)
+    private readonly clickRepository: Repository<Click>,
+  ) {}
 
   async create(click: Click): Promise<Click> {
     return await this.clickRepository.save(click);

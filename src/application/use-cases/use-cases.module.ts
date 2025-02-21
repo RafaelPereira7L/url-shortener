@@ -13,9 +13,27 @@ import { FindShortenedUrlUseCase } from './shortened-url/find-shortened-url.usec
 
 @Module({
   imports: [RepositoriesModule, AuthModule],
-  providers: [FindUserByEmailUseCase, FindShortenedUrlUseCase, CreateUserUseCase, SignInUseCase,
-    CreateShortenedUrlUseCase, ListUserShortenedUrlsUseCase, UpdateUserShortenedUrlsUseCase, SoftDeleteShortenedUrlUseCase, RegisterClickUseCase],
-  exports: [FindUserByEmailUseCase, FindShortenedUrlUseCase, CreateUserUseCase, SignInUseCase, CreateShortenedUrlUseCase,
-    ListUserShortenedUrlsUseCase, UpdateUserShortenedUrlsUseCase, SoftDeleteShortenedUrlUseCase, RegisterClickUseCase],
+  providers: [
+    FindUserByEmailUseCase,
+    FindShortenedUrlUseCase,
+    CreateUserUseCase,
+    SignInUseCase,
+    CreateShortenedUrlUseCase,
+    ListUserShortenedUrlsUseCase,
+    UpdateUserShortenedUrlsUseCase,
+    SoftDeleteShortenedUrlUseCase,
+    RegisterClickUseCase,
+  ],
+  exports: [
+    FindUserByEmailUseCase,
+    FindShortenedUrlUseCase,
+    CreateUserUseCase,
+    SignInUseCase,
+    CreateShortenedUrlUseCase,
+    ListUserShortenedUrlsUseCase,
+    UpdateUserShortenedUrlsUseCase,
+    SoftDeleteShortenedUrlUseCase,
+    RegisterClickUseCase,
+  ],
 })
-export class UseCasesModule { }
+export class UseCasesModule {}

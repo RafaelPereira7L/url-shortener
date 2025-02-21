@@ -15,18 +15,20 @@ import { ClickSchema } from '@infra/schemas/click.schema';
   imports: [
     TypeOrmModule.forFeature([UserSchema, ShortenedUrlSchema, ClickSchema]),
   ],
-  providers: [{
-    provide: UserRepository,
-    useClass: UserRepositoryImpl,
-  }, {
-    provide: ShortenedUrlRepository,
-    useClass: ShortenedUrlRepositoryImpl,
-  },
-  {
-    provide: ClickRepository,
-    useClass: ClickRepositoryImpl,
-  }
-],
+  providers: [
+    {
+      provide: UserRepository,
+      useClass: UserRepositoryImpl,
+    },
+    {
+      provide: ShortenedUrlRepository,
+      useClass: ShortenedUrlRepositoryImpl,
+    },
+    {
+      provide: ClickRepository,
+      useClass: ClickRepositoryImpl,
+    },
+  ],
   exports: [UserRepository, ShortenedUrlRepository, ClickRepository],
 })
 export class RepositoriesModule {}

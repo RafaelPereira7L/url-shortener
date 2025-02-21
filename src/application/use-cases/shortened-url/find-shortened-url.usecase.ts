@@ -1,12 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { ShortenedUrlRepository } from "@domain/repositories/shortened-url.repository";
-import { ShortenedUrl } from "@domain/entities/shortened-url.entity";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { ShortenedUrlRepository } from '@domain/repositories/shortened-url.repository';
+import { ShortenedUrl } from '@domain/entities/shortened-url.entity';
 
 @Injectable()
 export class FindShortenedUrlUseCase {
   constructor(
     private readonly shortenedUrlRepository: ShortenedUrlRepository,
-  ) { }
+  ) {}
 
   async execute(url: string): Promise<ShortenedUrl> {
     if (!url) {

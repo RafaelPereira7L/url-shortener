@@ -1,4 +1,4 @@
-import { ShortenedUrl } from "./shortened-url.entity";
+import { ShortenedUrl } from './shortened-url.entity';
 
 export class Click {
   id: string;

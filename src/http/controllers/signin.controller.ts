@@ -6,7 +6,7 @@ import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('sign-in')
 export class SignInController {
-  constructor(private readonly signInUseCase: SignInUseCase) { }
+  constructor(private readonly signInUseCase: SignInUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Authenticate user and generate access token' })
@@ -20,7 +20,7 @@ export class SignInController {
     status: 401,
     description: 'Invalid credentials',
   })
-  async auth(@Body() credentials: SignInDto): Promise<SignInResponseDto> { 
+  async auth(@Body() credentials: SignInDto): Promise<SignInResponseDto> {
     return await this.signInUseCase.execute(credentials);
   }
 }

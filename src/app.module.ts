@@ -30,7 +30,12 @@ import { RedirectController } from './http/controllers/redirect.controller';
     UseCasesModule,
     AuthModule,
   ],
-  controllers: [UserController, SignInController, ShortUrlController, RedirectController],
+  controllers: [
+    UserController,
+    SignInController,
+    ShortUrlController,
+    RedirectController,
+  ],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

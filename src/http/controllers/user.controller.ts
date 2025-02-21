@@ -7,7 +7,7 @@ import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private readonly createUserUseCase: CreateUserUseCase) { }
+  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
@@ -21,7 +21,9 @@ export class UserController {
     status: 409,
     description: 'User already exists',
   })
-  async createUser(@Body() user: CreateUserDto): Promise<CreateUserResponseDto> {
+  async createUser(
+    @Body() user: CreateUserDto,
+  ): Promise<CreateUserResponseDto> {
     return await this.createUserUseCase.execute(user);
   }
 }

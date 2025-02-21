@@ -9,7 +9,7 @@ export class RedirectController {
   constructor(
     private readonly registerClickUseCase: RegisterClickUseCase,
     private readonly findShortenedUrlUseCase: FindShortenedUrlUseCase,
-  ) { }
+  ) {}
 
   @ApiOperation({ summary: 'Redirect to the original URL' })
   @ApiParam({ name: 'code', description: 'The shortened URL code' })
