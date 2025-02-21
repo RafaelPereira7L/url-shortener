@@ -6,19 +6,19 @@ export class InMemoryShortenedUrlRepository implements ShortenedUrlRepository {
   private shortenedUrls: ShortenedUrl[] = [];
 
   async findAllByUserId(userId: string): Promise<ShortenedUrl[]> {
-    return this.shortenedUrls.filter((shortenedUrl) => shortenedUrl.userId === userId);
+    return this.shortenedUrls.filter((shortenedUrl) => shortenedUrl.userId === userId && shortenedUrl.deletedAt == null);
   }
 
   async findByShortUrl(shortUrl: string): Promise<ShortenedUrl | null> {
-    return this.shortenedUrls.find((shortenedUrl) => shortenedUrl.shortUrl === shortUrl) || null;
+    return this.shortenedUrls.find((shortenedUrl) => shortenedUrl.shortUrl === shortUrl && shortenedUrl.deletedAt == null) || null;
   }
 
   async findByOriginalUrl(originalUrl: string): Promise<ShortenedUrl | null> {
-    return this.shortenedUrls.find((shortenedUrl) => shortenedUrl.originalUrl === originalUrl) || null;
+    return this.shortenedUrls.find((shortenedUrl) => shortenedUrl.originalUrl === originalUrl && shortenedUrl.deletedAt == null) || null;
   }
 
   async findByShortUrlId(id: string): Promise<ShortenedUrl | null> {
-    return this.shortenedUrls.find((shortenedUrl) => shortenedUrl.id === id) || null;
+    return this.shortenedUrls.find((shortenedUrl) => shortenedUrl.id === id && shortenedUrl.deletedAt == null) || null;
   }
 
   async create(shortenedUrl: ShortenedUrl): Promise<ShortenedUrl> {
@@ -30,7 +30,7 @@ export class InMemoryShortenedUrlRepository implements ShortenedUrlRepository {
   }
 
   async update(shortenedUrl: ShortenedUrl): Promise<boolean> {
-    const index = this.shortenedUrls.findIndex((u) => u.id === shortenedUrl.id);
+    const index = this.shortenedUrls.findIndex((u) => u.id === shortenedUrl.id && shortenedUrl.deletedAt == null);
     if (index === -1) {
       throw new Error('ShortenedUrl not found');
     }

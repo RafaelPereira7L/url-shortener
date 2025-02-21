@@ -33,7 +33,7 @@ export class CreateShortenedUrlResponseDto {
     example: '2023-10-01T00:00:00.000Z',
     description: 'The date the shortened URL was deleted',
   })
-  deletedAt: Date;
+  deletedAt: Date | null;
 
   @ApiProperty({
     example: '1',

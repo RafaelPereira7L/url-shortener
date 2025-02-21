@@ -7,7 +7,7 @@ export class ShortenedUrl {
   shortUrl: string;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: Date | null;
   userId: string | null;
   user: User | null;
   clicksCount: number;
