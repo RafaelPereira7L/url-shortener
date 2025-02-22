@@ -84,6 +84,9 @@ docker exec -it url-shortener-app-dev pnpm run test
 ```
 8. Abra o navegador e acesse `http://localhost:3000/api` para visualizar a documentação da API no Swagger UI  
 
+## Arquitetura da Aplicação
+O projeto segue os princípios da **Clean Architecture**, que promove a separação de responsabilidades e a independência das camadas, dividindo a aplicação em camadas bem definidas, como **Entities (regras de negócio)**, **Use Cases (lógica de aplicação)**, **Controllers (interface com o usuário)** e **Repositories (acesso a dados)**. Essa estrutura garante que o núcleo do negócio seja independente de frameworks, bibliotecas externas ou detalhes de infraestrutura, facilitando a manutenção, testes e evolução do sistema. Para testes unitários, são utilizados **InMemory Repositories**, que simulam o comportamento dos repositórios reais em memória, permitindo validar a lógica da aplicação de forma isolada e eficiente, sem depender de bancos de dados ou infraestrutura externa. A inversão de dependência é aplicada para garantir que camadas de alto nível (como regras de negócio) dependam apenas de abstrações, e não de implementações concretas, reforçando a modularidade e a testabilidade do código. 
+
 ## Capturas de Tela 📷  
 
 <details>

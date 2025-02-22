@@ -85,7 +85,10 @@ $ docker exec -it url-shortener-app-dev pnpm run test
 ```
 8. Open your browser and navigate to `http://localhost:3000/api` to access the API documentation in Swagger UI
 
-## Prints 📷
+## Application Architecture
+The project follows the principles of **Clean Architecture**, which promotes the separation of responsibilities and independence of layers, dividing the application into well-defined layers such as **Entities (business rules)**, **Use Cases (application logic)**, **Controllers (user interface)**, and **Repositories (data access)**. This structure ensures that the core business logic is independent of frameworks, external libraries, or infrastructure details, facilitating maintenance, testing, and system evolution. For unit testing, **InMemory Repositories** are used, which simulate the behavior of real repositories in memory, allowing the application logic to be validated in an isolated and efficient manner without relying on databases or external infrastructure. Dependency inversion is applied to ensure that high-level layers (such as business rules) depend only on abstractions, not concrete implementations, reinforcing modularity and code testability.
+
+## Screenshots 📷
 
 <details>
   <summary>Swagger</summary>
