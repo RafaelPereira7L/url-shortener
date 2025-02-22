@@ -23,6 +23,9 @@
 - Jest  
 - Swagger  
 
+
+## Link de deploy: [url-shortener.raffp.dev](https://url-shortener.raffp.dev/api)
+
 ## Requisitos  
 - [Node.js](https://nodejs.org/en/download/) (v20.18.0 ou superior)  
 - [Docker](https://docs.docker.com/get-docker/)  

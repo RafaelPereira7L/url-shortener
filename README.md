@@ -26,6 +26,11 @@
 - [Docker](https://docs.docker.com/get-docker/) 
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
+
+
+## Deployed at: [url-shortener.raffp.dev](https://url-shortener.raffp.dev/api)
+
+
 ## Local Setup
 1. Clone the repository
 ```sh
